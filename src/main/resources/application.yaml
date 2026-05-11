@@ -1,3 +1,8 @@
+
+ping:
+  issuer: https://idpb2e-prp.adeo.com
+
+
 spring:
   application:
     name: demo-mcp-server
@@ -6,6 +11,18 @@ spring:
       server:
         protocol: stateless
         name: demo-mcp-server
+  security:
+    oauth2:
+      client:
+        registration:
+          authserver:
+            client-name: ping
+            client-id: ${PING_CLIENT_ID}
+            client-secret: ${PING_CLIENT_SECRET}
+            scope: openid, email
+        provider:
+          authserver:
+            issuer-uri: ${ping.issuer}
 
 server:
   port: ${PORT:8080}
